@@ -2,6 +2,8 @@ package entities
 
 import (
 	"testing"
+	"time"
+	"waiter/domain/product/enums"
 	"waiter/domain/product/value_objects"
 
 	"github.com/google/uuid"
@@ -10,7 +12,10 @@ import (
 var product = Product{
 	uuid.New(),
 	"glass",
-	value_objects.NewPrice(175.50, "KGS"),
+	time.Now(),
+	enums.Thing,
+	"122500053883513",
+	"",
 }
 
 func Test_ProductName_MustNotBeNullOrEmpty(t *testing.T) {
@@ -28,8 +33,14 @@ func Test_ProductPrice_MustNotBeLessThanZero(t *testing.T) {
 	value_objects.NewPrice(-1, "KGS")
 }
 
-func Test_ProductPriceCurrency_ShouldBeSimilar(t *testing.T) {
-	if !product.price.EqualCurrency("KGS") {
-		t.Errorf("Product price must be similar")
+func Test_ProductCode_MustNotBeNullOrEmpty(t *testing.T) {
+	if product.code == "" {
+		t.Errorf("Product code must not be empty")
+	}
+}
+
+func Test_ProductDescription_LimitOffset(t *testing.T) {
+	if len(product.description) > 500 {
+		t.Errorf("Product description length must be less than 500")
 	}
 }
