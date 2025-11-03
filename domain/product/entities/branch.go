@@ -7,8 +7,8 @@ import (
 )
 
 type Branch struct {
-	id         uuid.UUID
-	name       string
-	userId     uuid.UUID
-	dateCreate time.Time
+	id        uuid.UUID
+	name      string
+	userId    uuid.UUID
+	createdAt time.Time
 }

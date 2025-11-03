@@ -21,3 +21,6 @@ func (p Price) String() string {
 func (p Price) EqualCurrency(currency string) bool {
 	return p.currency == currency
 }
+func (p Price) IsPositiveAmount() bool {
+	return p.amount > 0
+}

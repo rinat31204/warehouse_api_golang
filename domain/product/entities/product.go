@@ -11,7 +11,7 @@ import (
 type Product struct {
 	id          uuid.UUID
 	name        string
-	dateCreate  time.Time
+	createdAt   time.Time
 	measure     enums.MeasureType
 	code        string
 	description string

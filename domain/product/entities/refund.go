@@ -8,17 +8,17 @@ import (
 )
 
 type Refund struct {
-	id         uuid.UUID
-	dateCreate time.Time
-	productId  uuid.UUID
-	branchId   uuid.UUID
-	quantity   int
-	userId     uuid.UUID
+	id        uuid.UUID
+	createdAt time.Time
+	productId uuid.UUID
+	branchId  uuid.UUID
+	quantity  float64
+	userId    uuid.UUID
 }
 
 func NewRefund(
 	productId uuid.UUID,
-	quantity int,
+	quantity float64,
 	branchId uuid.UUID,
 	userId uuid.UUID) (*Refund, error) {
 
