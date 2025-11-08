@@ -17,6 +17,7 @@ type Supply struct {
 	createdAt   time.Time
 	branchid    uuid.UUID
 	supplierId  uuid.UUID
+	userId      uuid.UUID
 }
 
 func NewSupply(
@@ -26,6 +27,7 @@ func NewSupply(
 	branchid uuid.UUID,
 	salePrice value_objects.Price,
 	supplierId uuid.UUID,
+	userId uuid.UUID,
 ) (Supply, error) {
 	if quantity <= 0 {
 		return Supply{}, errors.New("quantity must be positive")
@@ -51,5 +53,6 @@ func NewSupply(
 		time.Now(),
 		branchid,
 		supplierId,
+		userId,
 	}, nil
 }
