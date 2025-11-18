@@ -10,11 +10,11 @@ import (
 
 type Product struct {
 	id          uuid.UUID
-	name        string
+	Name        string
 	createdAt   time.Time
-	measure     enums.MeasureType
-	code        string
-	description string
+	Measure     enums.MeasureType
+	Code        string
+	Description string
 }
 
 func NewProduct(
@@ -38,4 +38,22 @@ func NewProduct(
 		code,
 		description,
 	}, nil
+}
+
+func (p *Product) Update(
+	name string,
+	measureType enums.MeasureType,
+	code string,
+	description string) (Product, error) {
+	if name == "" || code == "" {
+		return Product{}, errors.New("product name or code is empty")
+	}
+	if !enums.IsValid(measureType) {
+		return Product{}, errors.New("invalid measure type")
+	}
+	p.Name = name
+	p.Measure = measureType
+	p.Code = code
+	p.Description = description
+	return *p, nil
 }
