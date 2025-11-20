@@ -1,7 +1,9 @@
 package product
 
-import "waiter/application/contracts"
+import (
+	"waiter/application/contracts"
+)
 
 type EditProductUseCase interface {
-	Execute(command contracts.EditProductCommand) (bool, error)
+	Execute(command contracts.EditProductCommand) error
 }

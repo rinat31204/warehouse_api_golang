@@ -18,12 +18,9 @@ func TestAddProduct_Success(t *testing.T) {
 	}
 	mock, addCalled := createMock(t, command)
 	uc := product.NewAddProduct(mock)
-	isAdded, err := uc.Execute(command)
+	err := uc.Execute(command)
 	if err != nil {
 		t.Error(err)
-	}
-	if !isAdded {
-		t.Error("Product was not added")
 	}
 	if atomic.LoadInt32(addCalled) != 1 {
 		t.Errorf("Add was called %d times", addCalled)
@@ -33,7 +30,7 @@ func TestAddProduct_Success(t *testing.T) {
 func createMock(t *testing.T, command contracts.AddProductCommand) (*ProductRepositoryMock, *int32) {
 	var addCalled int32
 	mock := &ProductRepositoryMock{
-		AddFunc: func(product entities.Product) (bool, error) {
+		AddFunc: func(product *entities.Product) error {
 			atomic.AddInt32(&addCalled, 1)
 			if product.Name != command.Name {
 				t.Errorf("product.Name should be %s, got %s", command.Name, product.Name)
@@ -44,7 +41,7 @@ func createMock(t *testing.T, command contracts.AddProductCommand) (*ProductRepo
 			if product.Measure != enums.MeasureType(command.Measure) {
 				t.Errorf("product.Measure should be %d, got %d", 0, product.Measure)
 			}
-			return true, nil
+			return nil
 		},
 	}
 	return mock, &addCalled
@@ -103,12 +100,9 @@ func TestProductCode_OnlyNumber(t *testing.T) {
 	}
 	mock, addCalled := createMock(t, command)
 	uc := product.NewAddProduct(mock)
-	isAdded, err := uc.Execute(command)
+	err := uc.Execute(command)
 	if err == nil {
 		t.Fatal("expected error, got nil")
-	}
-	if isAdded {
-		t.Error("Product was added")
 	}
 	expected := "invalid code"
 	if !strings.Contains(err.Error(), expected) {

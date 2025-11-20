@@ -18,22 +18,22 @@ import (
 //
 //		// make and configure a mocked ProductRepository
 //		mockedProductRepository := &ProductRepositoryMock{
-//			AddFunc: func(product entities.Product) (bool, error) {
+//			AddFunc: func(product *entities.Product) error {
 //				panic("mock out the Add method")
 //			},
-//			EditFunc: func(product entities.Product) (bool, error) {
+//			EditFunc: func(product *entities.Product) error {
 //				panic("mock out the Edit method")
 //			},
-//			GetFunc: func(uuid string) (entities.Product, error) {
+//			GetFunc: func(uuid string) (*entities.Product, error) {
 //				panic("mock out the Get method")
 //			},
-//			GetAllFunc: func() ([]entities.Product, error) {
+//			GetAllFunc: func() ([]*entities.Product, error) {
 //				panic("mock out the GetAll method")
 //			},
-//			GetByCodeFunc: func(code string) (entities.Product, error) {
+//			GetByCodeFunc: func(code string) (*entities.Product, error) {
 //				panic("mock out the GetByCode method")
 //			},
-//			GetByNameFunc: func(name string) (entities.Product, error) {
+//			GetByNameFunc: func(name string) (*entities.Product, error) {
 //				panic("mock out the GetByName method")
 //			},
 //		}
@@ -44,34 +44,34 @@ import (
 //	}
 type ProductRepositoryMock struct {
 	// AddFunc mocks the Add method.
-	AddFunc func(product entities.Product) (bool, error)
+	AddFunc func(product *entities.Product) error
 
 	// EditFunc mocks the Edit method.
-	EditFunc func(product entities.Product) (bool, error)
+	EditFunc func(product *entities.Product) error
 
 	// GetFunc mocks the Get method.
-	GetFunc func(uuid string) (entities.Product, error)
+	GetFunc func(uuid string) (*entities.Product, error)
 
 	// GetAllFunc mocks the GetAll method.
-	GetAllFunc func() ([]entities.Product, error)
+	GetAllFunc func() ([]*entities.Product, error)
 
 	// GetByCodeFunc mocks the GetByCode method.
-	GetByCodeFunc func(code string) (entities.Product, error)
+	GetByCodeFunc func(code string) (*entities.Product, error)
 
 	// GetByNameFunc mocks the GetByName method.
-	GetByNameFunc func(name string) (entities.Product, error)
+	GetByNameFunc func(name string) (*entities.Product, error)
 
 	// calls tracks calls to the methods.
 	calls struct {
 		// Add holds details about calls to the Add method.
 		Add []struct {
 			// Product is the product argument value.
-			Product entities.Product
+			Product *entities.Product
 		}
 		// Edit holds details about calls to the Edit method.
 		Edit []struct {
 			// Product is the product argument value.
-			Product entities.Product
+			Product *entities.Product
 		}
 		// Get holds details about calls to the Get method.
 		Get []struct {
@@ -101,12 +101,12 @@ type ProductRepositoryMock struct {
 }
 
 // Add calls AddFunc.
-func (mock *ProductRepositoryMock) Add(product entities.Product) (bool, error) {
+func (mock *ProductRepositoryMock) Add(product *entities.Product) error {
 	if mock.AddFunc == nil {
 		panic("ProductRepositoryMock.AddFunc: method is nil but ProductRepository.Add was just called")
 	}
 	callInfo := struct {
-		Product entities.Product
+		Product *entities.Product
 	}{
 		Product: product,
 	}
@@ -121,10 +121,10 @@ func (mock *ProductRepositoryMock) Add(product entities.Product) (bool, error) {
 //
 //	len(mockedProductRepository.AddCalls())
 func (mock *ProductRepositoryMock) AddCalls() []struct {
-	Product entities.Product
+	Product *entities.Product
 } {
 	var calls []struct {
-		Product entities.Product
+		Product *entities.Product
 	}
 	mock.lockAdd.RLock()
 	calls = mock.calls.Add
@@ -133,12 +133,12 @@ func (mock *ProductRepositoryMock) AddCalls() []struct {
 }
 
 // Edit calls EditFunc.
-func (mock *ProductRepositoryMock) Edit(product entities.Product) (bool, error) {
+func (mock *ProductRepositoryMock) Edit(product *entities.Product) error {
 	if mock.EditFunc == nil {
 		panic("ProductRepositoryMock.EditFunc: method is nil but ProductRepository.Edit was just called")
 	}
 	callInfo := struct {
-		Product entities.Product
+		Product *entities.Product
 	}{
 		Product: product,
 	}
@@ -153,10 +153,10 @@ func (mock *ProductRepositoryMock) Edit(product entities.Product) (bool, error) 
 //
 //	len(mockedProductRepository.EditCalls())
 func (mock *ProductRepositoryMock) EditCalls() []struct {
-	Product entities.Product
+	Product *entities.Product
 } {
 	var calls []struct {
-		Product entities.Product
+		Product *entities.Product
 	}
 	mock.lockEdit.RLock()
 	calls = mock.calls.Edit
@@ -165,7 +165,7 @@ func (mock *ProductRepositoryMock) EditCalls() []struct {
 }
 
 // Get calls GetFunc.
-func (mock *ProductRepositoryMock) Get(uuid string) (entities.Product, error) {
+func (mock *ProductRepositoryMock) Get(uuid string) (*entities.Product, error) {
 	if mock.GetFunc == nil {
 		panic("ProductRepositoryMock.GetFunc: method is nil but ProductRepository.Get was just called")
 	}
@@ -197,7 +197,7 @@ func (mock *ProductRepositoryMock) GetCalls() []struct {
 }
 
 // GetAll calls GetAllFunc.
-func (mock *ProductRepositoryMock) GetAll() ([]entities.Product, error) {
+func (mock *ProductRepositoryMock) GetAll() ([]*entities.Product, error) {
 	if mock.GetAllFunc == nil {
 		panic("ProductRepositoryMock.GetAllFunc: method is nil but ProductRepository.GetAll was just called")
 	}
@@ -224,7 +224,7 @@ func (mock *ProductRepositoryMock) GetAllCalls() []struct {
 }
 
 // GetByCode calls GetByCodeFunc.
-func (mock *ProductRepositoryMock) GetByCode(code string) (entities.Product, error) {
+func (mock *ProductRepositoryMock) GetByCode(code string) (*entities.Product, error) {
 	if mock.GetByCodeFunc == nil {
 		panic("ProductRepositoryMock.GetByCodeFunc: method is nil but ProductRepository.GetByCode was just called")
 	}
@@ -256,7 +256,7 @@ func (mock *ProductRepositoryMock) GetByCodeCalls() []struct {
 }
 
 // GetByName calls GetByNameFunc.
-func (mock *ProductRepositoryMock) GetByName(name string) (entities.Product, error) {
+func (mock *ProductRepositoryMock) GetByName(name string) (*entities.Product, error) {
 	if mock.GetByNameFunc == nil {
 		panic("ProductRepositoryMock.GetByNameFunc: method is nil but ProductRepository.GetByName was just called")
 	}

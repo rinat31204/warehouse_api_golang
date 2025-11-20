@@ -15,7 +15,7 @@ func NewAddProduct(repo repositories.ProductRepository) *AddProduct {
 	return &AddProduct{repo: repo}
 }
 
-func (u *AddProduct) Execute(command contracts.AddProductCommand) (bool, error) {
+func (u *AddProduct) Execute(command contracts.AddProductCommand) error {
 	product, err := entities.NewProduct(
 		command.Name,
 		enums.MeasureType(command.Measure),
@@ -23,11 +23,11 @@ func (u *AddProduct) Execute(command contracts.AddProductCommand) (bool, error) 
 		command.Description,
 	)
 	if err != nil {
-		return false, err
+		return err
 	}
-	add, err := u.repo.Add(*product)
+	err = u.repo.Add(product)
 	if err != nil {
-		return false, err
+		return err
 	}
-	return add, nil
+	return nil
 }

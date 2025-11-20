@@ -16,26 +16,24 @@ func NewEditProduct(repo repositories.ProductRepository) *EditProduct {
 	}
 }
 
-func (p *EditProduct) Execute(command contracts.EditProductCommand) (bool, error) {
+func (p *EditProduct) Execute(command contracts.EditProductCommand) error {
 	product, err := p.repo.Get(command.Id)
-
 	if err != nil {
-		return false, err
+		return err
 	}
 
-	updatedProduct, err := product.Update(
+	updateProduct, err := product.Update(
 		command.Name,
 		enums.MeasureType(command.Measure),
 		command.Code,
 		command.Description)
-
 	if err != nil {
-		return false, err
+		return err
 	}
 
-	edit, err := p.repo.Edit(updatedProduct)
+	err = p.repo.Edit(updateProduct)
 	if err != nil {
-		return false, err
+		return err
 	}
-	return edit, nil
+	return nil
 }

@@ -68,14 +68,14 @@ func (p *Product) Update(
 	name string,
 	measureType enums.MeasureType,
 	code string,
-	description string) (Product, error) {
+	description string) (*Product, error) {
 	e := validate(name, measureType, code)
 	if e != nil {
-		return Product{}, e
+		return nil, e
 	}
 	p.Name = name
 	p.Measure = measureType
 	p.Code = code
 	p.Description = description
-	return *p, nil
+	return p, nil
 }
