@@ -22,7 +22,7 @@ func (p *EditProduct) Execute(command contracts.EditProductCommand) error {
 		return err
 	}
 
-	updateProduct, err := product.Update(
+	updatedProduct, err := product.Update(
 		command.Name,
 		enums.MeasureType(command.Measure),
 		command.Code,
@@ -31,7 +31,7 @@ func (p *EditProduct) Execute(command contracts.EditProductCommand) error {
 		return err
 	}
 
-	err = p.repo.Edit(updateProduct)
+	err = p.repo.Edit(updatedProduct)
 	if err != nil {
 		return err
 	}

@@ -33,7 +33,7 @@ import (
 //			GetByCodeFunc: func(code string) (*entities.Product, error) {
 //				panic("mock out the GetByCode method")
 //			},
-//			GetByNameFunc: func(name string) (*entities.Product, error) {
+//			GetByNameFunc: func(name string) ([]*entities.Product, error) {
 //				panic("mock out the GetByName method")
 //			},
 //		}
@@ -59,7 +59,7 @@ type ProductRepositoryMock struct {
 	GetByCodeFunc func(code string) (*entities.Product, error)
 
 	// GetByNameFunc mocks the GetByName method.
-	GetByNameFunc func(name string) (*entities.Product, error)
+	GetByNameFunc func(name string) ([]*entities.Product, error)
 
 	// calls tracks calls to the methods.
 	calls struct {
@@ -256,7 +256,7 @@ func (mock *ProductRepositoryMock) GetByCodeCalls() []struct {
 }
 
 // GetByName calls GetByNameFunc.
-func (mock *ProductRepositoryMock) GetByName(name string) (*entities.Product, error) {
+func (mock *ProductRepositoryMock) GetByName(name string) ([]*entities.Product, error) {
 	if mock.GetByNameFunc == nil {
 		panic("ProductRepositoryMock.GetByNameFunc: method is nil but ProductRepository.GetByName was just called")
 	}
