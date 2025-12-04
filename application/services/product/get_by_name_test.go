@@ -1,11 +1,12 @@
-package test
+package product
 
 import (
 	"errors"
 	"strings"
 	"testing"
-	product2 "waiter/application/services/product"
 	"waiter/domain/product/entities"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGetProductByName_Success(t *testing.T) {
@@ -18,11 +19,12 @@ func TestGetProductByName_Success(t *testing.T) {
 		},
 	}
 
-	uc := product2.NewGetByName(mock)
+	uc := NewGetByName(mock)
 	products, err := uc.Execute("cola")
-	if err != nil {
-		t.Errorf("GetProductByName error : %v", err)
-	}
+
+	assert.Nil(t, err)
+	assert.Contains(t, products, "cola 0.5")
+
 	if !containsProductWithName(products, "cola") {
 		t.Error("GetProductByName error not same product")
 	}
@@ -38,12 +40,4 @@ func containsProductWithName(products []*entities.Product, searchTerm string) bo
 		return true
 	}
 	return false
-}
-
-func TestGetProductByName_Fail(t *testing.T) {
-
-}
-
-func TestGetProductById_NotFound(t *testing.T) {
-
 }

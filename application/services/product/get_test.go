@@ -1,11 +1,10 @@
-package test
+package product
 
 import (
 	"errors"
 	"sync/atomic"
 	"testing"
 	"time"
-	"waiter/application/services/product"
 	"waiter/domain/product/entities"
 	"waiter/domain/product/enums"
 
@@ -16,7 +15,7 @@ func TestGetProduct_Success(t *testing.T) {
 	const id = "123e4567-e89b-12d3-a456-426614174000"
 	mock, getCalled := createGetProductMock(t, id)
 
-	uc := product.NewGetProduct(mock)
+	uc := NewGetProduct(mock)
 	p, err := uc.Execute(id)
 
 	if err != nil {
@@ -40,7 +39,7 @@ func TestGetProduct_Success(t *testing.T) {
 func TestGetProduct_Fail(t *testing.T) {
 	mock, getCalled := createGetProductMock(t, "123e4567-e89b-12d3-a456-426614174000")
 
-	uc := product.NewGetProduct(mock)
+	uc := NewGetProduct(mock)
 	p, err := uc.Execute("")
 
 	if err == nil {
