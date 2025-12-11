@@ -3,7 +3,7 @@ package product
 import (
 	"sync/atomic"
 	"testing"
-	"waiter/application/contracts"
+	"waiter/application/commands"
 	"waiter/domain/product/entities"
 	"waiter/domain/product/enums"
 
@@ -11,7 +11,7 @@ import (
 )
 
 func TestAddProduct_Success(t *testing.T) {
-	command := contracts.AddProductCommand{
+	command := commands.AddProductCommand{
 		Name:    "cola",
 		Measure: 0,
 		Code:    "123456789",
@@ -26,7 +26,7 @@ func TestAddProduct_Success(t *testing.T) {
 }
 
 func TestProductCode_OnlyNumber(t *testing.T) {
-	command := contracts.AddProductCommand{
+	command := commands.AddProductCommand{
 		Name:    "cola",
 		Measure: 0,
 		Code:    "1234rhgsd567sdf89",
@@ -83,7 +83,7 @@ func TestProduct_FailCases(t *testing.T) {
 	}
 }
 
-func createMock(t *testing.T, command contracts.AddProductCommand) (*ProductRepositoryMock, *int32) {
+func createMock(t *testing.T, command commands.AddProductCommand) (*ProductRepositoryMock, *int32) {
 	var addCalled int32
 	mock := &ProductRepositoryMock{
 		AddFunc: func(product *entities.Product) error {

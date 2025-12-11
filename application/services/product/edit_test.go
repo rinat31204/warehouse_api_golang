@@ -4,7 +4,7 @@ import (
 	"sync/atomic"
 	"testing"
 	"time"
-	"waiter/application/contracts"
+	"waiter/application/commands"
 	"waiter/domain/product/entities"
 	"waiter/domain/product/enums"
 
@@ -13,7 +13,7 @@ import (
 )
 
 func TestEditProduct_Success(t *testing.T) {
-	command := contracts.EditProductCommand{
+	command := commands.EditProductCommand{
 		Id:          "123e4567-e89b-12d3-a456-426614174000",
 		Name:        "fanta",
 		Measure:     1,
@@ -30,7 +30,7 @@ func TestEditProduct_Success(t *testing.T) {
 }
 
 func TestEditProductName_Fail(t *testing.T) {
-	command := contracts.EditProductCommand{
+	command := commands.EditProductCommand{
 		Id:          "123e4567-e89b-12d3-a456-426614174000",
 		Name:        "",
 		Measure:     1,
@@ -48,7 +48,7 @@ func TestEditProductName_Fail(t *testing.T) {
 }
 
 func TestEditProductCode_Fail(t *testing.T) {
-	command := contracts.EditProductCommand{
+	command := commands.EditProductCommand{
 		Id:          "123e4567-e89b-12d3-a456-426614174000",
 		Name:        "sdgsdfsfd",
 		Measure:     1,
@@ -65,7 +65,7 @@ func TestEditProductCode_Fail(t *testing.T) {
 	assert.Equal(t, 0, int(*editCalled))
 }
 
-func createEditProductMock(t *testing.T, command contracts.EditProductCommand) (*ProductRepositoryMock, *int32) {
+func createEditProductMock(t *testing.T, command commands.EditProductCommand) (*ProductRepositoryMock, *int32) {
 	var editCalled int32
 	mock := &ProductRepositoryMock{
 		EditFunc: func(product *entities.Product) error {

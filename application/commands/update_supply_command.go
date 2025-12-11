@@ -1,4 +1,4 @@
-package contracts
+package commands
 
 type UpdateSupplyCommand struct {
 	SalePrice     float64

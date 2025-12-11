@@ -1,7 +1,7 @@
 package product
 
 import (
-	"waiter/application/contracts"
+	"waiter/application/commands"
 	"waiter/domain/product/entities"
 	"waiter/domain/product/enums"
 	"waiter/domain/product/repositories"
@@ -15,7 +15,7 @@ func NewAddProduct(repo repositories.ProductRepository) *AddProduct {
 	return &AddProduct{repo: repo}
 }
 
-func (u *AddProduct) Execute(command contracts.AddProductCommand) error {
+func (u *AddProduct) Execute(command commands.AddProductCommand) error {
 	product, err := entities.NewProduct(
 		command.Name,
 		enums.MeasureType(command.Measure),

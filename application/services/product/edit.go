@@ -1,7 +1,7 @@
 package product
 
 import (
-	"waiter/application/contracts"
+	"waiter/application/commands"
 	"waiter/domain/product/enums"
 	"waiter/domain/product/repositories"
 )
@@ -16,7 +16,7 @@ func NewEditProduct(repo repositories.ProductRepository) *EditProduct {
 	}
 }
 
-func (p *EditProduct) Execute(command contracts.EditProductCommand) error {
+func (p *EditProduct) Execute(command commands.EditProductCommand) error {
 	product, err := p.repo.Get(command.Id)
 	if err != nil {
 		return err

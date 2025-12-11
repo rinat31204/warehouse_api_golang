@@ -1,7 +1,6 @@
-package contracts
+package commands
 
-type EditProductCommand struct {
-	Id          string
+type AddProductCommand struct {
 	Name        string
 	Measure     int32
 	Code        string
